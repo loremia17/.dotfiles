@@ -8,7 +8,6 @@
 "                 ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 "               
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""               
-
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
 
@@ -23,6 +22,9 @@ filetype indent on
 
 " Turn syntax highlighting on.
 syntax on
+
+" Use of mouse
+set mouse=a
 
 " Add numbers to the file.
 set number
@@ -118,9 +120,6 @@ inoremap jj <Esc>
 nnoremap o o<esc>
 nnoremap O O<esc>
 
-" nnoremap n nzz
-" nnoremap N Nzz
-
 " Yank from cursor to the end of line.
 " nnoremap Y y$
 
@@ -135,7 +134,8 @@ nnoremap <C-u> <C-u>zz
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-xnoremap <leader>p "_dP
+" xnoremap <leader>p "_dP
+nnoremap <leader>p "+p
 
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
