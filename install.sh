@@ -10,6 +10,12 @@ command -v zsh | sudo tee -a /etc/shells
 # use zsh as default shell
 sudo chsh -s $(which zsh) $USER
 
+# go home
+cd ~/
+
+# starship
+curl -sS https://starship.rs/install.sh | sh
+
 # zsh plugins
 cd ~/.dotfiles/zsh/.zsh/
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
@@ -20,12 +26,6 @@ stow starship
 stow vim
 stow tmux
 stow zsh
-
-# go home
-cd ~/
-
-# starship
-curl -sS https://starship.rs/install.sh | sh
 
 #zoxide
 curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
