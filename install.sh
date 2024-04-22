@@ -6,9 +6,16 @@ sudo apt install zsh \
 
 # add zsh as a login shell
 command -v zsh | sudo tee -a /etc/shells
-
 # use zsh as default shell
 sudo chsh -s $(which zsh) $USER
+
+# install kitty and set as default terminal
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin \
+    dest=~/.local/stow
+cd ~/.local/stow
+stow -v kitty.app
+sudo update-alternatives --config x-terminal-emulator
+gsetting set org.gnome.desktop.default-applications.terminal exec 'kitty'
 
 # go home
 cd ~/
