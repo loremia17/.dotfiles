@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+export PATH="/home/$USER/.local/bin:$PATH"
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -91,6 +93,7 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias ..='cd ..'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -117,6 +120,7 @@ if ! shopt -oq posix; then
 fi
 
 eval "$(starship init bash)"
+eval "$(zoxide init --cmd cd bash)"
 
 source /opt/ros/humble/setup.bash
 export ROS_DOMAIN_ID=1
