@@ -126,3 +126,6 @@ eval "$(zoxide init --cmd cd bash)"
 source /opt/ros/humble/setup.bash
 export ROS_DOMAIN_ID=1
 export ROS_LOCALHOST_ONLY=1
+
+export TURTLEBOT3_MODEL=waffle
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
