@@ -18,6 +18,10 @@ stow tmux
 stow bash 
 stow git
 stow kitty
+stow fonts
+
+# Clear and regenerate font cache
+fc-cache -f -v
 
 # source zsh
 source ~/.bashrc
