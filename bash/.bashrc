@@ -4,6 +4,10 @@
 
 export PATH="/home/$USER/.local/bin:$PATH"
 
+# Use bash-completion, if available
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+    . /usr/share/bash-completion/bash_completion
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -116,9 +120,8 @@ fi
 eval "$(starship init bash)"
 eval "$(zoxide init --cmd cd bash)"
 
-source /opt/ros/humble/setup.bash
-export ROS_DOMAIN_ID=1
-export ROS_LOCALHOST_ONLY=1
-
-export TURTLEBOT3_MODEL=burger
-export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+#source /opt/ros/humble/setup.bash
+#export ROS_DOMAIN_ID=1
+#export ROS_LOCALHOST_ONLY=1
+#export TURTLEBOT3_MODEL=burger
+#export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
