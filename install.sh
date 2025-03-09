@@ -1,45 +1,111 @@
-# install packages
-sudo apt install zsh \
+#!/usr/bin/env bash
+
+set -e  # Exit on error
+set -u  # Treat unset variables as errors
+set -o pipefail  # Catch errors in pipelines
+
+#############################
+## Update & Install Packages
+#############################
+sudo apt update
+sudo apt install -y \
+    tmux \
     stow \
     git \
-    tmux -y
+    vim-gtk3 \
+    bash-completion \
+    curl \
+    # Add more packages as needed
 
-# add zsh as a login shell
-command -v zsh | sudo tee -a /etc/shells
-# use zsh as default shell
-sudo chsh -s $(which zsh) $USER
+#############################
+## Install Starship (prompt)
+#############################
+curl -sS https://starship.rs/install.sh | sh 
 
-# install kitty and set as default terminal
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin \
-    dest=~/.local/stow
-cd ~/.local/stow
-stow -v kitty.app
-sudo update-alternatives --config x-terminal-emulator
-gsetting set org.gnome.desktop.default-applications.terminal exec 'kitty'
+#############################
+## Install Zoxide
+#############################
+curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 
-# go home
-cd ~/
+#############################
+## Stow Your Dotfiles
+##
+##    Make sure you have cloned your dotfiles repo
+##    and that you're in the correct folder.
+#############################
+# Example:
+# git clone https://github.com/<your-username>/<dotfiles-repo>.git ~/dotfiles
+# cd ~/dotfiles
 
-# starship
-curl -sS https://starship.rs/install.sh | sh
-
-# zsh plugins
-cd ~/.dotfiles/zsh/.zsh/
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git
-
-# stow dotfiles
 stow starship
 stow vim
 stow tmux
-stow zsh
+stow git
+stow fonts
+rm ~/.bashrc
+stow bash
 
-#zoxide
-curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+#############################
+## Ensure .bashrc is properly set
+#############################
+check_and_append() {
+    local line="$1"
+    local file="$2"
+    if ! grep -Fxq "$line" "$file"; then
+        echo "$line" >> "$file"
+    fi
+}
+# Source bash-completion
+check_and_append "source /etc/profile.d/bash_completion.sh"  "$HOME/.bashrc"
+# Initialize Starship in Bash
+check_and_append 'eval "$(starship init bash)"' "$HOME/.bashrc"
+# Initialize Zoxide in Bash
+check_and_append 'eval "$(zoxide init bash)"' "$HOME/.bashrc"
 
-#fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+#############################
+## Install Tmux Plugin Manager (TPM) and Catppuccin theme
+##
+##    Clones TPM into ~/.tmux/plugins/tpm
+#############################
+if [ -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo "TPM is already installed. Skipping clone."
+else
+    echo "Cloning TPM..."
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
 
-# source zsh
-source ~/.zshrc
+if [ -d "$HOME/.tmux/plugins/catppuccin" ]; then
+    echo "Catppuccin is already installed. Skipping clone."
+else
+    echo "Cloning Catppuccin..."
+    git clone -b v2.1.2 https://github.com/catppuccin/tmux.git "$HOME/.tmux/plugins/catppuccin/tmux"
+    tmux source ~/.tmux.conf
+fi
+
+#############################
+##  Install Tmux Plugins Immediately
+##
+##    If your .tmux.conf references the plugins:
+##      set -g @plugin 'tmux-plugins/tpm'
+##      set -g @plugin 'tmux-plugins/tmux-yank'
+##      set -g @plugin 'tmux-plugins/tmux-resurrect'
+##      set -g @plugin 'tmux-plugins/tmux-continuum'
+##      run '~/.tmux/plugins/tpm/tpm'
+##
+##    Then we can manually install/clean them here:
+#############################
+~/.tmux/plugins/tpm/scripts/install_plugins.sh
+~/.tmux/plugins/tpm/scripts/clean_plugins.sh
+
+#############################
+## Clear & Regenerate Font Cache
+#############################
+fc-cache -f -v
+
+echo "All done! Tmux, TPM, Starship, and Zoxide should now be set up."
+
+#############################
+## Source .bashrc
+#############################
+source $HOME/.bashrc
+
