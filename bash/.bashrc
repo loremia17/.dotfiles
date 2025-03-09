@@ -124,5 +124,3 @@ fi
 
 eval "$(starship init bash)"
 eval "$(zoxide init --cmd cd bash)"
-source /etc/profile.d/bash_completion.sh
-eval "$(zoxide init bash)"

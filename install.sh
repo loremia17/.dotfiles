@@ -51,16 +51,14 @@ stow bash
 check_and_append() {
     local line="$1"
     local file="$2"
-    if ! grep -Fxq "$line" "$file"; then
+    if ! rep -Fxq "$line" "$file"; then
         echo "$line" >> "$file"
     fi
 }
-# Source bash-completion
-check_and_append "source /etc/profile.d/bash_completion.sh"  "$HOME/.bashrc"
 # Initialize Starship in Bash
 check_and_append 'eval "$(starship init bash)"' "$HOME/.bashrc"
 # Initialize Zoxide in Bash
-check_and_append 'eval "$(zoxide init bash)"' "$HOME/.bashrc"
+check_and_append 'eval "$(zoxide init --cmd cd bash)"' "$HOME/.bashrc"
 
 #############################
 ## Install Tmux Plugin Manager (TPM) and Catppuccin theme
@@ -72,13 +70,6 @@ if [ -d "$HOME/.tmux/plugins/tpm" ]; then
 else
     echo "Cloning TPM..."
     git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
-fi
-
-if [ -d "$HOME/.tmux/plugins/catppuccin" ]; then
-    echo "Catppuccin is already installed. Skipping clone."
-else
-    echo "Cloning Catppuccin..."
-    git clone -b v2.1.2 https://github.com/catppuccin/tmux.git "$HOME/.tmux/plugins/catppuccin/tmux"
 fi
 
 #############################
