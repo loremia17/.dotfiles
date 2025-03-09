@@ -79,7 +79,6 @@ if [ -d "$HOME/.tmux/plugins/catppuccin" ]; then
 else
     echo "Cloning Catppuccin..."
     git clone -b v2.1.2 https://github.com/catppuccin/tmux.git "$HOME/.tmux/plugins/catppuccin/tmux"
-    tmux source ~/.tmux.conf
 fi
 
 #############################
