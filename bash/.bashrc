@@ -137,6 +137,6 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 eval "$(starship init bash)"
 eval "$(zoxide init --cmd cd bash)"
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
