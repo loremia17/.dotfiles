@@ -11,6 +11,7 @@ $git_branch\
 $git_status\
 [](fg:green bg:teal)\
 $c\
+$conda\
 $rust\
 $golang\
 $nodejs\
@@ -22,7 +23,8 @@ $python\
 [](fg:teal bg:blue)\
 $docker_context\
 [](fg:blue)\
-$line_break$character"""
+$line_break\
+$character"""
 
 palette = 'catppuccin_mocha'
 
@@ -178,8 +180,8 @@ format = '[[  $time ](fg:mantle bg:purple)]($style)'
 [conda]
 ignore_base = false
 symbol = " 🅒"
-style = "bg:blue"
-format = '[$symbol $environment ]($style)'
+style = "bg:teal"
+format = '[[ $symbol( $environment) ](fg:base bg:teal)]($style)'
 
 [line_break]
 disabled = false
