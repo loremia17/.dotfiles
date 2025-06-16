@@ -81,13 +81,11 @@ set -g @ctp_mantle "#181825"
 set -g @ctp_crust "#11111b"
 
 # status line
-set -gF status-style "bg=#{@ctp_base},fg=#{@ctp_fg}"
+set -gF status-style "bg=#{@ctp_base},fg=#{@ctp_text}"
 
 # windows
-set -g window-status-separator ""
-
 set -g status-left-length 60
-set -g status-left "#[bg=#{@ctp_base},fg=#{@ctp_green}]#[default]#[bg=#{@ctp_green},fg=#181926,bold] #[default]#[bg=#{@ctp_base},fg=#{@ctp_text}] #S  #[default]"
+set -g status-left "#[bg=#{@ctp_base},fg=#{@ctp_green}]#[default]#[bg=#{@ctp_green},fg=#{@ctp_base},bold] #[default]#[bg=#{@ctp_base},fg=#{@ctp_text}] #S  #[default]"
 set -g status-right-length 100
 set -g status-right "#[bg=#{@ctp_base},fg=#{@ctp_surface2}]#[default]#[fg=#{@ctp_text},bg=#{@ctp_surface2}]󰢹  #H #[fg=#{@ctp_peach}]#[fg=#{@ctp_base},bg=#{@ctp_peach}]  #{pane_current_path} #[default]"
 
@@ -97,4 +95,3 @@ set -g window-status-format "#[bg=#{@ctp_base},fg=#{@ctp_text}]#[default]#[bg
 set -g window-status-current-format "#[bg=#{@ctp_base},fg=#{@ctp_mauve}]#[default]#[bg=#{@ctp_mauve},fg=#{@ctp_surface0}, bold]#I #[default]#[bg=#{@ctp_surface2},fg=#{@ctp_mauve}] #W#{?window_zoomed_flag, ,}#[default]#[bg=#{@ctp_base},fg=#{@ctp_surface2}]#[default]"
 
 run '~/.tmux/plugins/tpm/tpm'
-
