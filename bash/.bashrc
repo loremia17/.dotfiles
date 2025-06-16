@@ -136,6 +136,15 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# Yazi y shell wrapper taht provides the ability to change the current working directory when exiting
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 eval "$(starship init bash)"
